@@ -1,6 +1,8 @@
 <x-layout>
-    <x-slot:heading>
-        Index
-    </x-slot:heading>
-    <h1>Este es el index</h1>
+    <x-slot name="heading">
+        Inicio
+    </x-slot>
+
+
+
 </x-layout>
