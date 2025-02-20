@@ -22,7 +22,10 @@ class OrderFactory extends Factory
             'payment_method'=>fake()->randomElement([]),
             'payment_status'=>fake()->randomElement([]),
             'shipping_method'=>fake()->randomElement([]),
-            'shipping_cost'=>fake()->numberBetween(3, 20)
+            'shipping_cost'=>fake()->numberBetween(3, 20),
+            'shipping_address'=>fake()->randomElement(['','']),
+            'billing_address'=>fake()->randomElement(['','']),
+            'tracking_number'=>fake()->ean8(),
         ];
     }
 }
