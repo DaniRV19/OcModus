@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ShoppingCart>
  */
-class ReviewFactory extends Factory
+class ShoppingCartFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,7 +22,6 @@ class ReviewFactory extends Factory
             'rating' => fake()->numberBetween(1, 5),
             'comment' => fake()->sentence,
             'is_approved' => fake()->boolean(80),
-            
         ];
     }
 }

@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Review>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ProductImages>
  */
-class ReviewFactory extends Factory
+class ProductImagesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,12 +17,11 @@ class ReviewFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween(1, 10),
             'product_id' => fake()->numberBetween(1, 10),
-            'rating' => fake()->numberBetween(1, 5),
-            'comment' => fake()->sentence,
-            'is_approved' => fake()->boolean(80),
-            
+            'url' => fake()->imageUrl(640, 480),
+            'alt_text' => fake()->sentence,
+            'is_primary' => fake()->boolean(80),
+            'display_order' => fake()->numberBetween(1, 10),
         ];
     }
 }
