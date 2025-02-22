@@ -17,7 +17,7 @@ class ProductFactory extends Factory
             'description'=>fake()->text(5),
             'price'=>fake()->numberBetween(5, 999),
             'stock'=>fake()->numberBetween(1, 49),
-            'sku'=>fake()->ean8(),
+            'sku'=>fake()->unique()->ean8(),
             'is_active'=>fake()->boolean(90),
             'category_id'=>fake()->numberBetween(1, 5)
         ];

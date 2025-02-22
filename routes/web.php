@@ -1,28 +1,18 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Job;
 
+// HOME
 Route::get("/", function () {
     return view('index');
 });
 
-Route::get('/jobs', function () {
-    return view(
-        'jobs',
-        [
-            'jobs' => Job::all()
-        ]
-    );
-});
-
-
-Route::get('/jobs/{id}', function ($id) {
-
-    $job = Job::find($id);
-    return view('job', ['job' => $job]);
-});
-
+// CONTACT
 Route::get('/contact', function () {
     return view('contact');
 });
+
+// PRODUCTS Resource
+Route::resource('products', ProductController::class);

@@ -1,7 +1,7 @@
 <x-layout>
-    <x-slot name="heading">
+    <x-slot:heading>
         Inicio
-    </x-slot>
+    </x-slot:heading>
 
 
 

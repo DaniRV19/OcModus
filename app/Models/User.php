@@ -7,10 +7,46 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
     protected $guarded = [];
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
+    }
+
+    public function wishlist()
+    {
+        return $this->belongsToMany(Product::class, 'wishlist'); // usa tabla wishlist como pivot para producto
+    }
+
+    public function cart()
+    {
+        return $this->belongsToMany(Product::class, 'shopping_cart')->withPivot('quantity'); // usa tabla shopping_cart como pivot para producto
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Vouchers::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

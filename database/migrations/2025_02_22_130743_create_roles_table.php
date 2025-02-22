@@ -11,22 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
-            $table->text('description');
-            $table->decimal('price');
-            $table->integer('stock');
-            $table->string('sku');
-            $table->boolean('is_active');
-            $table->foreignIdFor(App\Models\Category::class, 'category_id');
+            $table->string('description');
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('roles');
     }
 };
