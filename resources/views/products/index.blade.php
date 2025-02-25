@@ -1,28 +1,29 @@
 <x-layout>
     <x-slot:heading>
-        <h1 class="text-2xl font-semibold">Products</h1>
-    </x-slot:heading>   
-    
-    <div class="space-y-4"> 
+        Productos
+    </x-slot:heading>
+
+    <div class="">
         @foreach ( $products as $product)
-            <a href="/products/{{ $product['id'] }}" class=" block px-4 py-6 border border-gray-200 rounded"> 
-                <div class="font-bold text-blue-500">{{ ucfirst($product->category->name) }}</div>
-                <div class="text-xl">
-                    <strong>{{ ucfirst($product['name']) }}:</strong> {{ $product['price'] }}€.
+
+            <div class="relative pb-48 max-w-96 shadow-sm">
+                <img  class="absolute h-full w-full object-cover rounded-lg shadow-md" src="https://blog.vegaffinity.com/wp-content/uploads/2024/04/chorizo-vegano.png" alt="" >
+            </div>
+            <div class="relative px-3 -mt-16 max-w-96">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h4 class="mt-1 font-semibold text-lg leading-tight truncate">{{ $product['name'] }}</h4>
+                    <div class="mt-1">
+                        {{ $product['price'] }}
+                    </div>
+                    <div class="mt-2">
+                        {{ $product['stock'] }}<span class="text-gray-600 text-sm"> /uds</span>
+                    </div>
+                    <div class="flex justify-center mt-4 pb-1 rounded-lg bg-emerald-400 text-white">
+                        <a href="#" class="mt-1">Comprar</a>
+                    </div>
                 </div>
-                <div class="text-sm">
-                    {{ ucfirst($product['description']) }}
-                </div>
-                <div class="text-sm">
-                    <strong>{{ ucfirst($product['stock']) }}</strong> disponibles en el almacén.
-                </div>
-                <div class="text-sm">
-                    Slug: <strong>{{ $product['slug'] }}</strong>
-                </div>
-                <div class="text-sm">
-                    Nº de Identificación en el almacén: <strong>{{ ucfirst($product['sku']) }}</strong>
-                </div>
-            </a>
+            </div>
+
         @endforeach
 
         <div>

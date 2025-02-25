@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone');
-            $table->timestamp('email_verified_at')->default(NULL);
+            $table->timestamp('email_verified_at')->nullable()->default(NULL);
             $table->boolean('is_active')->default(false);
-            // $table->foreignIdFor(App\Models\Role::class, 'role_id')->default(1);
-            $table->string('remember_token');
+//            $table->foreignIdFor(App\Models\Role::class, 'role_id')->default(1);
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
 

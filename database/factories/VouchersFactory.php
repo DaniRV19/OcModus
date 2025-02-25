@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vouchers>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Voucher>
  */
 class VouchersFactory extends Factory
 {
@@ -22,7 +22,7 @@ class VouchersFactory extends Factory
             'expiry_date' => fake()->dateTimeBetween('now', '+1 year'),
             'is_used' => fake()->boolean(80),
             'user_id' => fake()->numberBetween(1, 10),
-            
+
         ];
     }
 }

@@ -23,12 +23,12 @@ class Order extends Model
 
     public function discounts()
     {
-        return $this->belongsToMany(Discounts::class);
+        return $this->belongsToMany(Discount::class);
     }
 
     public function vouchers()
     {
-        return $this->belongsToMany(Vouchers::class);
+        return $this->belongsToMany(Voucher::class);
     }
 
     public function shippingAddress()
