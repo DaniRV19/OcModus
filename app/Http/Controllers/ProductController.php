@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -18,7 +19,11 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all();
+
+        return view('products.create', [
+            'categories' => $categories
+        ]);
     }
 
     public function show(Product $product)
@@ -29,14 +34,24 @@ class ProductController extends Controller
     public function store()
     {
         request()->validate([
-            'title' => ['required', 'min:3'],
-            'salary' => ['required']
+            'product_name' => ['required', 'min:3'],
+            'sku' => ['required', 'min:8', 'max:8', 'unique:products'],
+            'description' => [''],
+            'category' => ['required', 'exists:categories,id'],
+            'price' => ['required', 'numeric'],
+            'stock' => ['required', 'numeric'],
+
         ]);
 
         Product::create([
-            'title' => request('title'),
-            'salary' => request('salary'),
-            'employer_id' => 1
+            'name' => request('product_name'),
+            'slug' => request('product_name'),
+            'description' => request('description'),
+            'price' => request('price'),
+            'stock' => request('stock'),
+            'sku' => request('sku'),
+            'is_active' => true,
+            'category_id' => request('category'),
         ]);
 
         return redirect('/products');
