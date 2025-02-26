@@ -46,3 +46,8 @@ Route::delete('/shopping_cart/remove/{rowId}', [ShoppingCartController::class, '
 Route::get('/shopping_cart/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/shopping_cart/checkout', [CheckoutController::class, 'process'])->name('checkout.process');
 Route::get('/shopping_cart/checkout/confirmation', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
+
+// Factura
+
+// Ruta para generar y descargar la factura en PDF
+Route::get('/shopping_cart/checkout/invoice', [CheckoutController::class, 'invoice'])->name('checkout.invoice');
