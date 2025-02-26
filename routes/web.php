@@ -34,6 +34,12 @@ Route::get('/admin', function () {
     return view('admin.index');
 });
 
+// User
+
+Route::get('/user', function () {
+    return view('user.index');
+});
+
 // SHOPPING CART
 Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
 Route::post('/shopping_cart/add', [ShoppingCartController::class, 'add'])->name('shopping_cart.add');
