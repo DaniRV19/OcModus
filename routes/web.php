@@ -57,3 +57,7 @@ Route::get('/shopping_cart/checkout/confirmation', [CheckoutController::class, '
 
 // Ruta para generar y descargar la factura en PDF
 Route::get('/shopping_cart/checkout/invoice', [CheckoutController::class, 'invoice'])->name('checkout.invoice');
+
+// Cupon
+
+Route::post('/shopping_cart/apply-coupon', [\App\Http\Controllers\ShoppingCartController::class, 'applyCoupon'])->name('shopping_cart.applyCoupon');

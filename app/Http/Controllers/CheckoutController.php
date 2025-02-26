@@ -13,17 +13,30 @@ class CheckoutController extends Controller
      * Muestra la vista de checkout con el resumen del carrito.
      */
     public function index()
-    {
-        $items = Cart::instance('cart')->content();
-        $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
-        $shipping = $rawSubtotal * 0.075; // Costo de envío fijo
-        $vatRate = 0.21; // IVA del 21%
-        $vat = $rawSubtotal * $vatRate;
-        $total = $rawSubtotal + $shipping + $vat;
+{
+    $items = Cart::instance('cart')->content();
+    $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
+    $shipping = $rawSubtotal * 0.075; // 7.5% del subtotal
+    $vatRate = 0.21;
+    $vat = $rawSubtotal * $vatRate;
+    $total = $rawSubtotal + $shipping + $vat;
 
-        // Ahora la vista se llama checkout.blade.php
-        return view('user.shopping_cart.checkout', compact('items', 'rawSubtotal', 'shipping', 'vatRate', 'vat', 'total'));
+    $voucher = session('appliedVoucher');
+    $discount = 0;
+    if ($voucher) {
+        // Suponemos que el cupón aplica un descuento fijo (valor en la columna "amount")
+        $discount = $voucher->amount;
+        $total = $total - $discount;
+        if($total < 0) {
+            $total = 0;
+        }
     }
+
+    return view('user.shopping_cart.checkout', compact(
+        'items', 'rawSubtotal', 'shipping', 'vatRate', 'vat', 'total', 'voucher', 'discount'
+    ));
+}
+
 
     /**
      * Procesa el checkout: valida stock, simula el pago, actualiza stock y vacía el carrito.
@@ -83,7 +96,7 @@ class CheckoutController extends Controller
         $companyData = [
             'name' => 'OC MODUS',
             'address' => 'Nervión, Sevilla',
-            'phone' => '12439856'
+            'phone' => '693495858'
         ];
 
         // Combina los datos de la compra con los datos de usuario y empresa

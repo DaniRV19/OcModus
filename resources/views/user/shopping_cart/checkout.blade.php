@@ -3,7 +3,7 @@
     <main class="pt-24">
         <section class="container mx-auto px-4">
             <h2 class="text-2xl font-bold mb-6">Resumen de Pedido</h2>
-            
+
             @if(session('error'))
                 <div class="bg-red-100 text-red-700 p-3 rounded-lg mb-4">
                     {{ session('error') }}
@@ -44,19 +44,26 @@
                                 <td class="text-right p-2">${{ number_format($rawSubtotal, 2) }}</td>
                             </tr>
                             <tr class="border-b">
-                                <th class="text-left p-2">Envío</th>
+                                <th class="text-left p-2">Gastos de envío</th>
                                 <td class="text-right p-2">${{ number_format($shipping, 2) }}</td>
                             </tr>
                             <tr class="border-b">
-                                <th class="text-left p-2">IVA ({{ $vatRate * 100 }}%)</th>
+                                <th class="text-left p-2">Impuesto ({{ $vatRate * 100 }}%)</th>
                                 <td class="text-right p-2">${{ number_format($vat, 2) }}</td>
                             </tr>
+                            @if(isset($voucher))
+                                <tr class="border-b">
+                                    <th class="text-left p-2">Descuento (Cupón {{ $voucher->code }})</th>
+                                    <td class="text-right p-2">- ${{ number_format($discount, 2) }}</td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th class="text-left p-2 font-bold">Total</th>
                                 <td class="text-right p-2 font-bold">${{ number_format($total, 2) }}</td>
                             </tr>
                         </tbody>
                     </table>
+
                     <form action="{{ route('checkout.process') }}" method="POST" class="mt-4">
                         @csrf
                         <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg">

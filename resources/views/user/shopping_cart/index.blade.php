@@ -77,9 +77,20 @@
                                 </table>
                             </div>
                             <div class="flex justify-between items-center mt-4">
-                                <input type="text" placeholder="Coupon Code" class="border rounded-lg p-2" />
-                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Aplicar Cupón</button>
+                                <form action="{{ route('shopping_cart.applyCoupon') }}" method="POST" class="flex gap-2">
+                                    @csrf
+                                    <input type="text" name="coupon_code" placeholder="Coupon Code"
+                                        class="border rounded-lg p-2" />
+                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Aplicar
+                                        Cupón</button>
+                                </form>
+                                @if(session('error'))
+                                    <p class="text-red-500 text-sm">{{ session('error') }}</p>
+                                @elseif(session('success'))
+                                    <p class="text-green-500 text-sm">{{ session('success') }}</p>
+                                @endif
                             </div>
+
                         @else
                             <div class="text-center py-10">
                                 <p class="text-gray-500">No hay artículos en el carrito</p>
