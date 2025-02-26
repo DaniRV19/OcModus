@@ -1,6 +1,6 @@
-<x-layout>
+<x-admin-layout>
     <x-slot:heading>
         Panel de Administrador
     </x-slot:heading>
 
-</x-layout>
+</x-admin-layout>
