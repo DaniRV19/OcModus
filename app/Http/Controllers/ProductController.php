@@ -12,7 +12,7 @@ class ProductController extends Controller
     {
         $products = Product::with('category')->latest('id')->paginate(5);
 
-        return view('products.index', [
+        return view('admin.products.index', [
             'products' => $products
         ]);
     }
@@ -21,14 +21,14 @@ class ProductController extends Controller
     {
         $categories = Category::all();
 
-        return view('products.create', [
+        return view('admin.products.create', [
             'categories' => $categories
         ]);
     }
 
     public function show(Product $product)
     {
-        return view('products.show', ['product' => $product]);
+        return view('admin.products.show', ['product' => $product]);
     }
 
     public function store()
@@ -59,7 +59,7 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('products.edit', ['product' => $product]);
+        return view('admin.products.edit', ['product' => $product]);
     }
 
     public function update(Product $product)

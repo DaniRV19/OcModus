@@ -1,4 +1,8 @@
 
+@php
+use Surfsidemedia\Shoppingcart\Facades\Cart;
+@endphp
+
 <!-- Navbar Principal -->
 <header class="bg-white shadow-sm">
     <!-- Sección superior -->
@@ -33,12 +37,14 @@
 
             <!-- Icono carrito/bolsa -->
             <div class="flex items-center space-x-4">
-                <a href="#" class="text-gray-500 hover:text-primary-green relative">
+                <a href="{{ route('shopping_cart.index') }}" class="text-gray-500 hover:text-primary-green relative">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                     </svg>
-                    <span class="absolute -top-2 -right-2 bg-primary-green text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </a>
+                    @if(Cart::instance('cart')->content()->count() > 0)
+                        <span class="absolute -top-2 -right-2 bg-primary-green text-black text-xs rounded-full h-5 w-5 flex items-center justify-center">{{ Cart::instance('cart')->content()->count() }}</span>
+                    @endif
+                    </a>
             </div>
         </div>
     </div>
