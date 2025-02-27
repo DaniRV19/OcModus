@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
@@ -61,3 +62,9 @@ Route::get('/shopping_cart/checkout/invoice', [CheckoutController::class, 'invoi
 // Cupon
 
 Route::post('/shopping_cart/apply-coupon', [\App\Http\Controllers\ShoppingCartController::class, 'applyCoupon'])->name('shopping_cart.applyCoupon');
+
+
+//Controlador para cambio de idioma
+
+Route::post('/language', [LanguageController::class, 'change'])->name('language.change');
+
