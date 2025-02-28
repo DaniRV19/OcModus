@@ -47,15 +47,16 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($items as $item)
-            <tr>
-                <td>{{ $item['name'] }}</td>
-                <td class="text-center">{{ $item['qty'] }}</td>
-                <td class="text-right">{{ number_format($item['price'], 2) }} €</td>
-                <td class="text-right">{{ number_format($item['subtotal'], 2) }} €</td>
-            </tr>
-            @endforeach
-        </tbody>
+    @foreach($items as $item)
+    <tr>
+        <td>{{ \App\Models\Product::find($item['product_id'])->name }}</td>
+        <td class="text-center">{{ $item['quantity'] }}</td>
+        <td class="text-right">{{ number_format($item['unit_price'], 2) }} €</td>
+        <td class="text-right">{{ number_format($item['subtotal'], 2) }} €</td>
+    </tr>
+    @endforeach
+</tbody>
+
     </table>
 
     <table>
