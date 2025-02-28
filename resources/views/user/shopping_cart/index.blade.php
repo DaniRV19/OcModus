@@ -7,7 +7,7 @@
             @php
                 // Obtenemos el subtotal "limpio" (sin formato) de la instancia "cart"
                 $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
-                // Costo de envío calculado como 7.5% del subtotal (ajústalo según necesites)
+                // Costo de envío calculado como 7.5% del subtotal
                 $shipping = $rawSubtotal * 0.075;
                 // Tasa de IVA (por ejemplo, 21%)
                 $vatRate = 0.21;
