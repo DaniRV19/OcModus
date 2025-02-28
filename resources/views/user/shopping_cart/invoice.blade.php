@@ -17,7 +17,7 @@
 <body>
 
     <div class="header">
-        <h1>FACTURA Nº 01</h1>
+        <h1>FACTURA</h1>
     </div>
 
     <table class="no-border">
