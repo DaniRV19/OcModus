@@ -15,8 +15,9 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        $items = Cart::instance('cart')->content();
-        $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
+        $instance = 'cart_' . auth()->id();
+        $items = Cart::instance($instance)->content();
+        $rawSubtotal = (float) Cart::instance($instance)->subtotal(2, '.', '');
         $shipping = $rawSubtotal * 0.075; // 7.5% del subtotal
         $vatRate = 0.21;
         $vat = $rawSubtotal * $vatRate;
@@ -28,7 +29,7 @@ class CheckoutController extends Controller
             // Cupón con descuento fijo (valor en "amount")
             $discount = $voucher->amount;
             $total = $total - $discount;
-            if($total < 0) {
+            if ($total < 0) {
                 $total = 0;
             }
         }
@@ -43,8 +44,9 @@ class CheckoutController extends Controller
      */
     public function process(Request $request)
     {
-        $items = Cart::instance('cart')->content();
-        $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
+        $instance = 'cart_' . auth()->id();
+        $items = Cart::instance($instance)->content();
+        $rawSubtotal = (float) Cart::instance($instance)->subtotal(2, '.', '');
         $shipping = $rawSubtotal * 0.075; // 7.5% del subtotal
         $vatRate = 0.21; // 21% IVA
         $vat = $rawSubtotal * $vatRate;
@@ -116,8 +118,8 @@ class CheckoutController extends Controller
             'discount'    => $discount,
         ]);
 
-        // Vaciar el carrito
-        Cart::instance('cart')->destroy();
+        // Vaciar el carrito exclusivo del usuario
+        Cart::instance($instance)->destroy();
 
         return redirect()->route('checkout.confirmation')->with('success', 'Compra completada exitosamente.');
     }
@@ -147,7 +149,7 @@ class CheckoutController extends Controller
         $address = $user->addresses()->where('is_default', true)->first();
         $addressString = 'Dirección no especificada';
         if ($address) {
-            $addressString = $address->street . ', ' . $address->city . ', ' . 
+            $addressString = $address->street . ', ' . $address->city . ', ' .
                              $address->state . ', ' . $address->country . ' ' . $address->postal_code;
         }
 
