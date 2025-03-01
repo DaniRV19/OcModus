@@ -45,23 +45,33 @@
                 <h3 class="text-xs uppercase text-gray-500 font-semibold">Gestión</h3>
                 <ul class="mt-2 space-y-4">
                     <li>
-                        <x-nav-link href="/admin/" :active="request()->is('admin/dashboard')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                        <x-nav-link href="/admin" :active="request()->is('/admin')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
                             Dashboard
                         </x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="/admin/products" :active="request()->is('admin/products*')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                        <x-nav-link href="/products" :active="request()->is('/products')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
                             Productos
                         </x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="/admin/categories" :active="request()->is('admin/categories*')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                        <x-nav-link href="/categories" :active="request()->is('/categories')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
                             Categorías
                         </x-nav-link>
                     </li>
                     <li>
-                        <x-nav-link href="/admin/orders" :active="request()->is('admin/orders*')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                        <x-nav-link href="/orders" :active="request()->is('/orders')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
                             Pedidos
+                        </x-nav-link>
+                    </li>
+                    <li>
+                        <x-nav-link href="/roles" :active="request()->is('/roles')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                            Roles
+                        </x-nav-link>
+                    </li>
+                    <li>
+                        <x-nav-link href="/vouchers" :active="request()->is('/vouchers')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                            Cupones
                         </x-nav-link>
                     </li>
                 </ul>
@@ -71,19 +81,15 @@
                 <h3 class="text-xs uppercase text-gray-500 font-semibold">Configuración</h3>
                 <ul class="mt-2 space-y-1">
                     <li>
-                        <x-nav-link href="/admin/users" :active="request()->is('admin/users*')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
+                        <x-nav-link href="/admin/users" :active="request()->is('/users')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
                             Usuarios
-                        </x-nav-link>
-                    </li>
-                    <li>
-                        <x-nav-link href="/admin/settings" :active="request()->is('admin/settings*')" class="flex items-center px-4 py-2 text-sm rounded-lg hover:bg-gray-100">
-                            Configuración
                         </x-nav-link>
                     </li>
                 </ul>
             </div>
 
             <div class="px-4 py-2 mt-6">
+                <x-button href="/" :active="request()->is('/')">Home</x-button>
                 <form method="POST" action="/logout" class="mt-4">
                     @csrf
                     <button type="submit" class="flex items-center px-4 py-2 w-full text-sm text-red-600 rounded-lg hover:bg-red-50">

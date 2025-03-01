@@ -5,30 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     public function index()
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
         $products = Product::with('category')->latest('id')->paginate(5);
 
-        return view('admin.products.index', [
+        return view('user.products.index', [
             'products' => $products
         ]);
     }
 
     public function create()
     {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
         $categories = Category::all();
 
-        return view('admin.products.create', [
+        return view('user.products.create', [
             'categories' => $categories
         ]);
     }
 
     public function show(Product $product)
     {
-        return view('admin.products.show', ['product' => $product]);
+        return view('user.products.show', ['product' => $product]);
     }
 
     public function store()

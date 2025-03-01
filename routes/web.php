@@ -1,24 +1,66 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\VouchersController;
+use App\Models\Address;
+use App\Models\Category;
+use App\Models\Discount;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Role;
+use App\Models\User;
+use App\Models\Voucher;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\CheckoutController;
 
-// HOME
-Route::get("/", function () {
-    return view('index');
-});
 
-// CONTACT
-Route::get('/contact', function () {
-    return view('contact');
-});
+// USER
 
-// PRODUCTS Resource
-Route::resource('products', ProductController::class);
+    // HOME
+    Route::get("/", function () {
+        return view('index');
+    });
+
+    // CONTACT
+    Route::get('/contact', function () {
+        return view('contact');
+    });
+
+    // User
+
+    Route::get('/user', function () {
+        if (Auth::guest()) {
+            return redirect('/login');
+        }
+
+        return view('user.index');
+    });
+
+    Route::get('/user/products', function () {
+
+        $products = Product::with('category')->latest('id')->paginate(5);
+
+        return view('user.products.index', [
+            'products'=>$products
+        ]);
+    });
+
+    // ADDRESS
+    Route::get('/user/addresses', function () {
+
+        $addresses = Address::all();
+
+        return view('user.addresses.index', [
+            'addresses'=>$addresses
+        ]);
+    });
 
 // Auth
 Route::get('/register', [RegisteredUserController::class, 'create']);
@@ -28,17 +70,36 @@ Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
-// Admin
-
+// ADMIN
 Route::get('/admin', function () {
-    return view('admin.index');
+
+    if (Auth::guest()) {
+        return redirect('/login');
+    }
+
+    $categories = Category::all();
+    $products = Product::all();
+    $discounts = Discount::all();
+    $orders = Order::all();
+    $roles = Role::all();
+    $vouchers = Voucher::all();
+
+    return view('admin.index', [
+        'categories'=>$categories,
+        'products'=>$products,
+        'discounts'=>$discounts,
+        'orders'=>$orders,
+        'roles'=>$roles,
+        'vouchers'=>$vouchers
+    ]);
 });
 
-// User
-
-Route::get('/user', function () {
-    return view('user.index');
-});
+// ADMIN Resources
+Route::resource('products', ProductController::class);
+Route::resource('orders', OrderController::class);
+Route::resource('categories', CategoryController::class);
+Route::resource('vouchers', VouchersController::class);
+Route::resource('roles', RoleController::class);
 
 // SHOPPING CART
 Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
