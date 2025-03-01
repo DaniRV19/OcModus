@@ -16,15 +16,18 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\User::class, 'user_id');
             $table->decimal('total_amount', 10, 2);
             $table->enum('status', ['pending', 'shipped', 'delivered', 'canceled']);
+            // Definir opciones válidas para los campos enum:
             $table->enum('payment_method', ['transferencia', 'tarjeta', 'paypal']);
             $table->enum('payment_status', ['pending', 'completed', 'failed']);
             $table->enum('shipping_method', ['standard', 'express']);
             $table->decimal('shipping_cost', 10, 2);
-//            $table->foreignIdFor(App\Models\Address::class, 'shipping_address'); TODO::
-//            $table->foreignIdFor(App\Models\Address::class, 'billing_address'); TODO::
+            // Agregamos las columnas de dirección (permitiéndolas null por si no existen aún)
+            $table->foreignId('shipping_address_id')->nullable()->constrained('addresses');
+            $table->foreignId('billing_address_id')->nullable()->constrained('addresses');
             $table->string('tracking_number');
             $table->timestamps();
         });
+
     }
 
     /**

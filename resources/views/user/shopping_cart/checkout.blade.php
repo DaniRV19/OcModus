@@ -66,7 +66,7 @@
 
                     <form action="{{ route('checkout.process') }}" method="POST" class="mt-4">
                         @csrf
-                        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg">
+                        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:cursor-pointer">
                             Proceder al Pago
                         </button>
                     </form>

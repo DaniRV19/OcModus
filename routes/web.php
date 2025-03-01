@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
@@ -28,39 +29,13 @@ use App\Http\Controllers\CheckoutController;
         return view('index');
     });
 
-    // CONTACT
-    Route::get('/contact', function () {
-        return view('contact');
-    });
+// CONTACT
+Route::get('/contact', function () {
+    return view('contact');
+});
 
-    // User
-
-    Route::get('/user', function () {
-        if (Auth::guest()) {
-            return redirect('/login');
-        }
-
-        return view('user.index');
-    });
-
-    Route::get('/user/products', function () {
-
-        $products = Product::with('category')->latest('id')->paginate(5);
-
-        return view('user.products.index', [
-            'products'=>$products
-        ]);
-    });
-
-    // ADDRESS
-    Route::get('/user/addresses', function () {
-
-        $addresses = Address::all();
-
-        return view('user.addresses.index', [
-            'addresses'=>$addresses
-        ]);
-    });
+// PRODUCTS Resource
+Route::resource('products', ProductController::class);
 
 // Auth
 Route::get('/register', [RegisteredUserController::class, 'create']);
@@ -70,7 +45,8 @@ Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::post('/logout', [SessionController::class, 'destroy']);
 
-// ADMIN
+// Admin
+
 Route::get('/admin', function () {
 
     if (Auth::guest()) {
@@ -122,3 +98,9 @@ Route::get('/shopping_cart/checkout/invoice', [CheckoutController::class, 'invoi
 // Cupon
 
 Route::post('/shopping_cart/apply-coupon', [\App\Http\Controllers\ShoppingCartController::class, 'applyCoupon'])->name('shopping_cart.applyCoupon');
+
+
+//Controlador para cambio de idioma
+
+Route::post('/language', [LanguageController::class, 'change'])->name('language.change');
+
