@@ -9,13 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         if (Auth::guest()) {
             return redirect('/login');
         }
 
-        $products = Product::with('category')->latest('id')->paginate(5);
+        // Si se envía un parámetro "category" en la URL, se filtran los productos
+        if ($request->has('category') && $request->input('category') != '') {
+            $products = Product::with('category')
+                ->whereHas('category', function ($query) use ($request) {
+                    $query->where('slug', $request->category);
+                })
+                ->latest('id')
+                ->paginate(5);
+        } else {
+            $products = Product::with('category')->latest('id')->paginate(5);
+        }
 
         return view('user.products.index', [
             'products' => $products
@@ -49,7 +59,6 @@ class ProductController extends Controller
             'category' => ['required', 'exists:categories,id'],
             'price' => ['required', 'numeric'],
             'stock' => ['required', 'numeric'],
-
         ]);
 
         Product::create([
@@ -78,7 +87,6 @@ class ProductController extends Controller
             'title' => ['required', 'min:3'],
             'salary' => ['required']
         ]);
-
 
         $product->update([
             'title' => request('title'),

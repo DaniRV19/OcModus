@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('slug');
             $table->text('description');
             $table->foreignIdFor(App\Models\Category::class, 'parent_id')->nullable()->default(NULL);
+            // Nuevos campos para descuento
+            $table->decimal('discount', 5, 2)->default(0);
+            $table->boolean('discount_active')->default(false);
             $table->timestamps();
         });
     }

@@ -71,4 +71,20 @@ class CategoryController extends Controller
 
         return redirect('/categories');
     }
+
+    public function updateDiscount(Request $request, \App\Models\Category $category)
+{
+    $validated = $request->validate([
+        'discount' => ['required', 'numeric', 'min:0', 'max:100'],
+        'discount_active' => ['sometimes'], // Si no se marca, estará ausente; lo interpretamos como inactivo.
+    ]);
+
+    $category->update([
+        'discount' => $validated['discount'],
+        'discount_active' => $request->has('discount_active') ? true : false,
+    ]);
+
+    return redirect()->back()->with('success', 'Descuento actualizado correctamente.');
+}
+
 }
