@@ -47,9 +47,10 @@
                     @endphp
                     <div class="mb-8 shadow-lg rounded-lg overflow-hidden transition-transform duration-300 w-72">
                         <div class="relative pb-44">
-                            <img class="absolute h-full w-full object-cover rounded-t-lg shadow-md"
-                                src="{{ $product->images()->get()->pluck('url')->first() }}"
+                        <img class="absolute h-full w-full object-cover rounded-t-lg shadow-md"
+                                src="{{ optional($product->images->where('is_primary', true)->first())->url ?? asset('https://www.lavanguardia.com/files/og_thumbnail/uploads/2018/05/03/5e9983935a70b.jpeg') }}"
                                 alt="{{ $product->name }}">
+
                         </div>
                         <div class="relative -mt-8 bg-white rounded-b-lg shadow-md p-6">
                             <h4 class="mt-1 font-semibold text-lg leading-tight truncate text-gray-800">{{ $product->name }}</h4>

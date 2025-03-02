@@ -17,15 +17,16 @@ class ProductController extends Controller
 
         // Si se envía un parámetro "category" en la URL, se filtran los productos
         if ($request->has('category') && $request->input('category') != '') {
-            $products = Product::with('category')
+            $products = Product::with(['category', 'images'])
                 ->whereHas('category', function ($query) use ($request) {
                     $query->where('slug', $request->category);
                 })
                 ->latest('id')
                 ->paginate(5);
         } else {
-            $products = Product::with('category')->latest('id')->paginate(5);
+            $products = Product::with(['category', 'images'])->latest('id')->paginate(5);
         }
+        
 
         return view('user.products.index', [
             'products' => $products
