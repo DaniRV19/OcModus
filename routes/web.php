@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ReviewController;
+
 
 
 // USER
@@ -54,6 +56,7 @@ Route::get('/contact', function () {
 
 // PRODUCTS Resource
 Route::resource('products', ProductController::class);
+Route::post('/reviews/{product}', [ReviewController::class, 'store'])->name('reviews.show');
 
 // Auth
 Route::get('/register', [RegisteredUserController::class, 'create']);
