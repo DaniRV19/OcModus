@@ -33,6 +33,8 @@ Route::get("/", function () {
     return view('index');
 });
 
+
+
 Route::get('/user', function () {
 
     if (Auth::guest()) {

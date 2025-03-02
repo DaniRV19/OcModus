@@ -76,7 +76,11 @@
                         <div>
                             <h3 class="text-dark-brown font-medium mb-4">Comida</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-500 hover:text-primary-green">EJEMPLO</a></li>
+{{--                                @foreach($products as $product)--}}
+{{--                                    @if($product->category_id == 1)--}}
+{{--                                        <li><a href="products/">{{ $product->name }}</a></li>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
                             </ul>
                         </div>
 
@@ -84,7 +88,11 @@
                         <div>
                             <h3 class="text-dark-brown font-medium mb-4">Ropa</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-500 hover:text-primary-green">EJEMPLO</a></li>
+{{--                                @foreach($products as $product)--}}
+{{--                                    @if($product->category_id == 2)--}}
+{{--                                        <li><a href="products/">{{ $product->name }}</a></li>--}}
+{{--                                    @endif--}}
+{{--                                @endforeach--}}
                             </ul>
                         </div>
 
@@ -92,7 +100,9 @@
                         <div>
                             <h3 class="text-dark-brown font-medium mb-4">Categorías</h3>
                             <ul class="space-y-2">
-                                <li><a href="#" class="text-gray-500 hover:text-primary-green">EJEMPLO</a></li>
+{{--                                @foreach($categories as $category)--}}
+{{--                                    <li><a href="admin/categories">{{$category->name}}</a></li>--}}
+{{--                                @endforeach--}}
                             </ul>
                         </div>
                     </div>
