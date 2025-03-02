@@ -27,4 +27,26 @@ class OrderController extends Controller
 
         return redirect('/orders');
     }
+
+    public function cancel(\App\Models\Order $order)
+    {
+        // Asegurarse de que el pedido pertenezca al usuario logueado
+        if ($order->user_id !== auth()->id()) {
+            return redirect()->back()->with('error', 'No autorizado.');
+        }
+
+        $order->status = 'canceled';
+        $order->save();
+
+        return redirect()->back()->with('success', 'Pedido cancelado correctamente.');
+    }
+
+
+    public function myOrders()
+    {
+        // Obtener los pedidos del usuario autenticado
+        $orders = \App\Models\Order::where('user_id', auth()->id())->latest()->simplePaginate(5);
+        return view('user.orders.index', compact('orders'));
+    }
+
 }

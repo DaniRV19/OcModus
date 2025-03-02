@@ -81,7 +81,7 @@ class CheckoutController extends Controller
         $order = Order::create([
             'user_id'        => auth()->id(),
             'total_amount'   => $total,
-            'status'         => 'pending',
+            'status'         => ['pending', 'delivered', 'shipped'][array_rand(['pending', 'delivered', 'shipped'])],
             'payment_method' => 'transferencia',
             'payment_status' => 'pending',
             'shipping_method'=> 'standard',

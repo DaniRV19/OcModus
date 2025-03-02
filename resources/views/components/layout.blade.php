@@ -39,6 +39,9 @@
                 @endguest
                 @auth
                     <div class="flex gap-10 justify-baseline">
+                    
+                    <x-button href="/user">Panel de usuario</x-button>
+
                         <x-button href="/admin">Panel de Administrador</x-button>
                         <form method="POST" action="/logout">
                             @csrf

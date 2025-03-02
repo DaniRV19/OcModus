@@ -8,6 +8,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\VouchersController;
+use App\Http\Controllers\AddressController;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Discount;
@@ -24,28 +25,42 @@ use App\Http\Controllers\CheckoutController;
 
 // USER
 
-    // HOME
-    Route::get("/", function () {
-        return view('index');
-    });
+// HOME
+Route::get("/", function () {
+    return view('index');
+});
 
-    Route::get('/user', function () {
+Route::get('/user', function () {
 
-        //if (Auth::guest()) {
-        //    return redirect('/login');
-        //}
-    
-        return view('user.index', [
-            
-        ]);
-    });
+    //if (Auth::guest()) {
+    //    return redirect('/login');
+    //}
 
-    Route::get('/user/edit', function () {
-    
-        return view('user.edit', [
-            
-        ]);
-    });
+    return view('user.index', [
+
+    ]);
+});
+
+Route::get('/user/edit', function () {
+
+    return view('user.edit', [
+
+    ]);
+});
+
+Route::put('/user', [RegisteredUserController::class, 'update'])->name('user.update');
+
+Route::patch('/user/orders/{order}/cancel', [\App\Http\Controllers\OrderController::class, 'cancel'])->name('user.orders.cancel');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/user/addresses/create', [AddressController::class, 'create'])->name('address.create');
+    Route::post('/user/addresses', [AddressController::class, 'store'])->name('address.store');
+    Route::get('/user/addresses/{address}/edit', [AddressController::class, 'edit'])->name('address.edit');
+    Route::put('/user/addresses/{address}', [AddressController::class, 'update'])->name('address.update');
+    Route::delete('/user/addresses/{address}', [AddressController::class, 'destroy'])->name('address.destroy');
+});
+
+
 
 // CONTACT
 Route::get('/contact', function () {
@@ -79,12 +94,12 @@ Route::get('/admin', function () {
     $vouchers = Voucher::all();
 
     return view('admin.index', [
-        'categories'=>$categories,
-        'products'=>$products,
-        'discounts'=>$discounts,
-        'orders'=>$orders,
-        'roles'=>$roles,
-        'vouchers'=>$vouchers
+        'categories' => $categories,
+        'products' => $products,
+        'discounts' => $discounts,
+        'orders' => $orders,
+        'roles' => $roles,
+        'vouchers' => $vouchers
     ]);
 });
 
