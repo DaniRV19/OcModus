@@ -29,6 +29,24 @@ use App\Http\Controllers\CheckoutController;
         return view('index');
     });
 
+    Route::get('/user', function () {
+
+        //if (Auth::guest()) {
+        //    return redirect('/login');
+        //}
+    
+        return view('user.index', [
+            
+        ]);
+    });
+
+    Route::get('/user/edit', function () {
+    
+        return view('user.edit', [
+            
+        ]);
+    });
+
 // CONTACT
 Route::get('/contact', function () {
     return view('contact');
