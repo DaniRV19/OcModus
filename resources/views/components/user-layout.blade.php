@@ -67,7 +67,6 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label for="nombre" class="block text-gray-700 font-bold mb-1">Nombre: </label>
-                <p>{{ $user->name }}</p>
                 
             </div>
             <div>
@@ -78,7 +77,6 @@
 
         <div class="mt-4">
             <label for="email" class="block text-gray-700 font-bold mb-1">Correo Electrónico: </label>
-            <p>{{ $user->email }}</p>
         </div>
 
         <div class="mt-4">
