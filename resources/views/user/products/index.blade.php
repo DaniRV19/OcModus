@@ -65,28 +65,19 @@
                                 {{ $product->stock }} /uds
                             </div>
 
-                            <!-- Formulario de valoración con estrellas -->
+                            <!-- Formulario de valoración simplificado -->
                             @auth
-                                <form action="{{ route('reviews.show', $product->id) }}" method="POST" class="mt-4">
-                                    @csrf
-                                    <div class="flex items-center">
-                                        <span class="mr-2 text-gray-700">Tu valoración:</span>
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <input type="radio" name="rating" value="{{ $i }}" id="star{{ $i }}-{{ $product->id }}" class="hidden">
-                                            <label for="star{{ $i }}-{{ $product->id }}" class="cursor-pointer text-gray-300 hover:text-yellow-400 transition duration-200 ease-in-out">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-5 w-5">
-                                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
-                                                </svg>
-                                            </label>
-                                        @endfor
-                                    </div>
-                                    <button type="submit" class="mt-3 w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-md transition">
-                                        Enviar valoración
-                                    </button>
-                                </form>
+                                <a href="{{ route('reviews.create', $product->id) }}" 
+                                class="block mt-3 w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 rounded-md transition text-center">
+                                    Valorar Producto
+                                </a>
                             @else
-                                <p class="text-gray-600 text-sm mt-3">Por favor, <a href="{{ route('login') }}" class="text-blue-600 font-medium hover:underline">inicia sesión</a> para valorar este producto.</p>
+                                <p class="text-gray-600 text-sm mt-3">
+                                    Por favor, <a href="{{ route('login') }}" class="text-blue-600 font-medium hover:underline">inicia sesión</a> para valorar este producto.
+                                </p>
                             @endauth
+
+
 
                             <!-- Botones de Wishlist y Carrito -->
                             <div class="mt-4 flex gap-2">

@@ -2,34 +2,34 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Review;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function store(Request $request, Product $product)
+    public function create($productId)
     {
-        $request->validate([
-            'rating' => 'required|integer|between:1,5',
-            'comment' => 'nullable|string|max:1000',
+        $product = Product::findOrFail($productId);
+        return view('user.reviews.create', compact('product'));
+    }
+
+    public function store(Request $request, $productId)
+    {
+        $validated = $request->validate([
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'comment' => ['required', 'string'],
         ]);
 
-        // Verificar que el usuario no haya valorado el producto antes
-        $existingReview = $product->reviews()->where('user_id', Auth::id())->first();
-        if ($existingReview) {
-            return back()->with('error', 'Ya has valorado este producto.');
-        }
+        Review::create([
+            'user_id'   => Auth::id(),
+            'product_id'=> $productId,
+            'rating'    => $validated['rating'],
+            'comment'   => $validated['comment'],
+            'is_approved' => false, // O true, según tu lógica de aprobación
+        ]);
 
-        // Crear la valoración
-        $review = new Review();
-        $review->user_id = Auth::id();
-        $review->product_id = $product->id();
-        $review->rating = $request->rating;
-        $review->is_approved = false; // La aprobación de la valoración se puede manejar más tarde
-        $review->save();
-
-        return back()->with('success', 'Tu valoración ha sido enviada y está pendiente de aprobación.');
+        return redirect()->route('products.index')->with('success', 'Valoración enviada correctamente.');
     }
 }

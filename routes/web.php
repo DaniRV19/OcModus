@@ -150,3 +150,10 @@ Route::post('/language', [LanguageController::class, 'change'])->name('language.
 // Descuentos
 
 Route::put('/admin/categories/{category}/discount', [\App\Http\Controllers\CategoryController::class, 'updateDiscount'])->name('admin.categories.discount.update');
+
+// Reviews
+
+Route::middleware('auth')->group(function () {
+    Route::get('/reviews/create/{product}', [\App\Http\Controllers\ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/reviews/store/{product}', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
+});

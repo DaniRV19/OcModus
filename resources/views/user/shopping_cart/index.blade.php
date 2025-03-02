@@ -23,7 +23,7 @@
                     <div class="border-b-2 pb-4 mb-4">
                         <h3 class="text-lg font-semibold">Pasos de Compra</h3>
                         <div class="flex justify-between mt-2">
-                            <span class="px-4 py-2 bg-blue-500 text-white rounded-lg">01 Carrito</span>
+                            <span class="px-4 py-2 bg-green-600 text-white rounded-lg">01 Carrito</span>
                             <span class="px-4 py-2 bg-gray-200 rounded-lg">02 Checkout</span>
                             <span class="px-4 py-2 bg-gray-200 rounded-lg">03 Confirmación</span>
                         </div>
@@ -78,7 +78,7 @@
                                 <form action="{{ route('shopping_cart.applyCoupon') }}" method="POST" class="flex gap-2">
                                     @csrf
                                     <input type="text" name="coupon_code" placeholder="Coupon Code" class="border rounded-lg p-2" />
-                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Aplicar Cupón</button>
+                                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg">Aplicar Cupón</button>
                                 </form>
                                 @if(session('error'))
                                     <p class="text-red-500 text-sm">{{ session('error') }}</p>
@@ -89,7 +89,7 @@
                         @else
                             <div class="text-center py-10">
                                 <p class="text-gray-500">No hay artículos en el carrito</p>
-                                <a href="/products" class="bg-blue-500 text-white px-6 py-2 rounded-lg mt-4 inline-block">Ver Artículos</a>
+                                <a href="/products" class="bg-green-600 text-white px-6 py-2 rounded-lg mt-4 inline-block">Ver Artículos</a>
                             </div>
                         @endif
                     </div>
@@ -118,7 +118,7 @@
                     </table>
                     @if($items->count() > 0)
                         <!-- Enlace al checkout -->
-                        <a href="{{ route('checkout.index') }}" class="block bg-green-500 text-white text-center mt-4 py-2 rounded-lg">
+                        <a href="{{ route('checkout.index') }}" class="block bg-green-600 text-white text-center mt-4 py-2 rounded-lg">
                             Proceder al Checkout
                         </a>
                     @else

@@ -12,6 +12,14 @@
 
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="w-full md:w-3/4">
+                <div class="border-b-2 pb-4 mb-4">
+                        <h3 class="text-lg font-semibold">Pasos de Compra</h3>
+                        <div class="flex justify-between mt-2">
+                            <span class="px-4 py-2 bg-gray-200 rounded-lg">01 Carrito</span>
+                            <span class="px-4 py-2 bg-green-600 text-white rounded-lg">02 Checkout</span>
+                            <span class="px-4 py-2 bg-gray-200 rounded-lg">03 Confirmación</span>
+                        </div>
+                    </div>
                     <div class="bg-white shadow-md rounded-lg p-4">
                         <table class="min-w-full border-collapse border border-gray-300">
                             <thead>
@@ -66,7 +74,7 @@
 
                     <form action="{{ route('checkout.process') }}" method="POST" class="mt-4">
                         @csrf
-                        <button type="submit" class="w-full bg-green-500 text-white py-2 rounded-lg hover:cursor-pointer">
+                        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-lg hover:cursor-pointer">
                             Proceder al Pago
                         </button>
                     </form>
