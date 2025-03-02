@@ -67,37 +67,37 @@
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label for="nombre" class="block text-gray-700 font-bold mb-1">Nombre</label>
-                <input type="text" id="nombre" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Tu nombre" required>
+                
             </div>
             <div>
                 <label for="apellidos" class="block text-gray-700 font-bold mb-1">Apellidos</label>
-                <input type="text" id="apellidos" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Tus apellidos" required>
+                
             </div>
         </div>
 
         <div class="mt-4">
             <label for="email" class="block text-gray-700 font-bold mb-1">Correo Electrónico</label>
-            <input type="email" id="email" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="email@example.com" required>
+            
         </div>
 
         <div class="mt-4">
             <label for="telefono" class="block text-gray-700 font-bold mb-1">Teléfono</label>
-            <input type="tel" id="telefono" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="+1234567890" required>
+            
         </div>
 
         <div class="mt-4">
             <label for="ciudad" class="block text-gray-700 font-bold mb-1">Ciudad</label>
-            <input type="text" id="ciudad" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Tu ciudad" required>
+            
         </div>
 
         <div class="mt-4">
             <label for="direccion" class="block text-gray-700 font-bold mb-1">Dirección</label>
-            <input type="text" id="direccion" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Calle y número" required>
+            
         </div>
 
         <div class="mt-6 text-center">
-            <x-button href="user" type="submit">
-                Guardar
+            <x-button href="user.edit" type="submit">
+                Editar
             </x-button>
         </div>
     </form>
@@ -120,27 +120,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">#001</td>
-                    <td class="px-6 py-4">Pastel de Chocolate</td>
-                    <td class="px-6 py-4">2</td>
-                    <td class="px-6 py-4">12/02/2025</td>
-                    <td class="px-6 py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Completado</span></td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">#002</td>
-                    <td class="px-6 py-4">Galletas de Vainilla</td>
-                    <td class="px-6 py-4">1</td>
-                    <td class="px-6 py-4">10/02/2025</td>
-                    <td class="px-6 py-4"><span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Pendiente</span></td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">#003</td>
-                    <td class="px-6 py-4">Brownies</td>
-                    <td class="px-6 py-4">3</td>
-                    <td class="px-6 py-4">05/02/2025</td>
-                    <td class="px-6 py-4"><span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">Cancelado</span></td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -161,20 +141,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">#D001</td>
-                    <td class="px-6 py-4">Galletas de Avena</td>
-                    <td class="px-6 py-4">15/02/2025</td>
-                    <td class="px-6 py-4">Producto dañado</td>
-                    <td class="px-6 py-4"><span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Procesada</span></td>
-                </tr>
-                <tr class="border-b hover:bg-gray-50">
-                    <td class="px-6 py-4">#D002</td>
-                    <td class="px-6 py-4">Pastel de Fresa</td>
-                    <td class="px-6 py-4">14/02/2025</td>
-                    <td class="px-6 py-4">No es lo que esperaba</td>
-                    <td class="px-6 py-4"><span class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm">Pendiente</span></td>
-                </tr>
+                
             </tbody>
         </table>
     </div>
@@ -193,7 +160,7 @@
                 </tr>
             </thead>
             <tbody id="direccionesLista">
-                <!-- Las direcciones serán añadidas dinámicamente aquí -->
+                
             </tbody>
         </table>
     </div>
