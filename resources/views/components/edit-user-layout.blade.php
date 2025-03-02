@@ -56,11 +56,6 @@
             <input type="text" id="ciudad" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Tu ciudad" required>
         </div>
 
-        <div class="mt-4">
-            <label for="direccion" class="block text-gray-700 font-bold mb-1">Dirección</label>
-            <input type="text" id="direccion" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-primary-green" placeholder="Calle y número" required>
-        </div>
-
         <div class="mt-4 flex items-center">
             <input type="checkbox" id="terminos" class="mr-2">
             <label for="terminos" class="text-gray-700">Acepto los términos y condiciones</label>

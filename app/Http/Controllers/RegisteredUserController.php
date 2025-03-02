@@ -9,6 +9,13 @@ use Illuminate\Validation\Rules\Password;
 
 class RegisteredUserController extends Controller
 {
+
+    public function show()
+    {
+    $user = Auth::user();
+    return view('user', compact('user'));
+    }
+
     public function create()
     {
         return view('auth.register');

@@ -66,18 +66,19 @@
 
         <div class="grid grid-cols-2 gap-4">
             <div>
-                <label for="nombre" class="block text-gray-700 font-bold mb-1">Nombre</label>
+                <label for="nombre" class="block text-gray-700 font-bold mb-1">Nombre: </label>
+                <p>{{ $user->name }}</p>
                 
             </div>
             <div>
-                <label for="apellidos" class="block text-gray-700 font-bold mb-1">Apellidos</label>
+                <label for="apellidos" class="block text-gray-700 font-bold mb-1">Apellidos: </label>
                 
             </div>
         </div>
 
         <div class="mt-4">
-            <label for="email" class="block text-gray-700 font-bold mb-1">Correo Electrónico</label>
-            
+            <label for="email" class="block text-gray-700 font-bold mb-1">Correo Electrónico: </label>
+            <p>{{ $user->email }}</p>
         </div>
 
         <div class="mt-4">
@@ -87,11 +88,6 @@
 
         <div class="mt-4">
             <label for="ciudad" class="block text-gray-700 font-bold mb-1">Ciudad</label>
-            
-        </div>
-
-        <div class="mt-4">
-            <label for="direccion" class="block text-gray-700 font-bold mb-1">Dirección</label>
             
         </div>
 
@@ -141,25 +137,6 @@
                 </tr>
             </thead>
             <tbody>
-                
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<!-- Sección de Direcciones -->
-<div class="mt-8">
-    <h3 class="text-3xl font-semibold mb-6 text-gray-800 text-center">Direcciones de Domicilio</h3>
-    <div class="overflow-x-auto bg-white shadow-lg rounded-lg max-w-6xl mx-auto">
-        <table class="min-w-full table-auto text-left">
-            <thead class="bg-gradient-to-r from-teal-400 to-green-400 text-white">
-                <tr>
-                    <th class="px-6 py-3">Dirección</th>
-                    <th class="px-6 py-3">Código Postal</th>
-                    <th class="px-6 py-3">Acciones</th>
-                </tr>
-            </thead>
-            <tbody id="direccionesLista">
                 
             </tbody>
         </table>
