@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\VouchersController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\WishlistController;
 use App\Models\Address;
 use App\Models\Category;
 use App\Models\Discount;
@@ -34,9 +35,9 @@ Route::get("/", function () {
 
 Route::get('/user', function () {
 
-    //if (Auth::guest()) {
-    //    return redirect('/login');
-    //}
+    if (Auth::guest()) {
+        return redirect('/login');
+    }
 
     return view('user.index', [
 
@@ -112,6 +113,12 @@ Route::resource('orders', OrderController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('vouchers', VouchersController::class);
 Route::resource('roles', RoleController::class);
+
+// WISHLIST
+Route::post('/wishlist/add/{product}', [WishlistController::class, 'add'])->name('wishlist.add');
+Route::post('/wishlist/remove/{product}', [WishlistController::class, 'remove'])->name('wishlist.remove');
+Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+
 
 // SHOPPING CART
 Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
