@@ -136,44 +136,59 @@ class CheckoutController extends Controller
      * Genera la factura en PDF utilizando los datos de la orden almacenados en la sesión.
      */
     public function invoice()
-    {
-        $orderData = session('orderData');
+{
+    $orderData = session('orderData');
 
-        if (!$orderData) {
-            return redirect()->back()->with('error', 'No se encontraron datos de compra.');
-        }
-
-        // Obtener datos del usuario autenticado para la factura
-        $user = auth()->user();
-        // Obtener la dirección predeterminada del usuario (suponiendo que la relación addresses() está definida)
-        $address = $user->addresses()->where('is_default', true)->first();
-        $addressString = 'Dirección no especificada';
-        if ($address) {
-            $addressString = $address->street . ', ' . $address->city . ', ' .
-                             $address->state . ', ' . $address->country . ' ' . $address->postal_code;
-        }
-
-        $clientData = [
-            'name'    => $user->first_name . ' ' . $user->last_name,
-            'address' => $addressString,
-            'phone'   => $user->phone,
-        ];
-
-        $companyData = [
-            'name'    => 'OC MODUS',
-            'address' => 'Nervión, Sevilla',
-            'phone'   => '693495858'
-        ];
-
-        return PDF::loadView('user.shopping_cart.invoice', [
-            'clientData'  => $clientData,
-            'companyData' => $companyData,
-            'items'       => $orderData['items'] ?? [],
-            'rawSubtotal' => $orderData['rawSubtotal'] ?? 0,
-            'shipping'    => $orderData['shipping'] ?? 0,
-            'vatRate'     => $orderData['vatRate'] ?? 0,
-            'vat'         => $orderData['vat'] ?? 0,
-            'total'       => $orderData['total'] ?? 0,
-        ])->stream('factura.pdf');
+    if (!$orderData) {
+        return redirect()->back()->with('error', 'No se encontraron datos de compra.');
     }
+
+    // Datos del usuario
+    $user = auth()->user();
+
+    // Obtener la dirección predeterminada
+    $address = $user->addresses()->where('is_default', true)->first();
+    $addressString = 'Dirección no especificada';
+    if ($address) {
+        $addressString = $address->street . ', ' . $address->city . ', ' .
+                         $address->state . ', ' . $address->country . ' ' . $address->postal_code;
+    }
+
+    // Obtener la tarjeta de pago predeterminada
+    $card = $user->paymentCards()->where('is_default', true)->first();
+
+    $paymentCardData = null;
+    if ($card) {
+        $paymentCardData = [
+            'card_holder'    => $card->card_holder,
+            'card_number'    => $card->card_number, // Considera enmascararla, por ejemplo, mostrar solo los últimos 4 dígitos
+            'expiration_date'=> $card->expiration_date,
+        ];
+    }
+
+    $clientData = [
+        'name'    => $user->first_name . ' ' . $user->last_name,
+        'address' => $addressString,
+        'phone'   => $user->phone,
+    ];
+
+    $companyData = [
+        'name'    => 'OC MODUS',
+        'address' => 'Nervión, Sevilla',
+        'phone'   => '693495858'
+    ];
+
+    return PDF::loadView('user.shopping_cart.invoice', [
+        'clientData'      => $clientData,
+        'companyData'     => $companyData,
+        'paymentCardData' => $paymentCardData,
+        'items'           => $orderData['items'] ?? [],
+        'rawSubtotal'     => $orderData['rawSubtotal'] ?? 0,
+        'shipping'        => $orderData['shipping'] ?? 0,
+        'vatRate'         => $orderData['vatRate'] ?? 0,
+        'vat'             => $orderData['vat'] ?? 0,
+        'total'           => $orderData['total'] ?? 0,
+    ])->stream('factura.pdf');
+}
+
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\PaymentCard;
 
 
 class User extends Authenticatable
@@ -19,9 +20,9 @@ class User extends Authenticatable
     }
 
     public function addresses()
-{
-    return $this->hasMany(\App\Models\Address::class, 'user_id');
-}
+    {
+        return $this->hasMany(\App\Models\Address::class, 'user_id');
+    }
 
 
     public function wishlist()
@@ -38,6 +39,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function paymentCards()
+    {
+        return $this->hasMany(\App\Models\PaymentCard::class, 'user_id');
+    }
+
 
     public function reviews()
     {

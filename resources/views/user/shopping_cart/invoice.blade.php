@@ -78,9 +78,17 @@
         </tr>
     </table>
 
-    <div class="footer">
-        <p>Información de pago: Transferencia bancaria - Banco X - Nº de cuenta: 1234-5678-9101</p>
-    </div>
+    <div class="mt-4">
+    <h3 class="text-lg font-bold">Método de Pago</h3>
+    @if($paymentCardData)
+        <p><strong>Titular:</strong> {{ $paymentCardData['card_holder'] }}</p>
+        <p><strong>Número:</strong> **** **** **** {{ substr($paymentCardData['card_number'], -4) }}</p>
+        <p><strong>Vencimiento:</strong> {{ $paymentCardData['expiration_date'] }}</p>
+    @else
+        <p>No se registró tarjeta de pago.</p>
+    @endif
+</div>
+
 
 </body>
 </html>

@@ -157,3 +157,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/reviews/create/{product}', [\App\Http\Controllers\ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/reviews/store/{product}', [\App\Http\Controllers\ReviewController::class, 'store'])->name('reviews.store');
 });
+
+// Tarjetas
+
+Route::middleware('auth')->group(function () {
+    Route::get('/payment_cards/create', [\App\Http\Controllers\PaymentCardController::class, 'create'])->name('payment_cards.create');
+    Route::post('/payment_cards', [\App\Http\Controllers\PaymentCardController::class, 'store'])->name('payment_cards.store');
+    Route::delete('/payment_cards/{paymentCard}', [\App\Http\Controllers\PaymentCardController::class, 'destroy'])->name('payment_cards.destroy');
+});
+
+
