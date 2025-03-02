@@ -52,29 +52,39 @@ class ProductController extends Controller
     }
 
     public function store()
-    {
-        request()->validate([
-            'product_name' => ['required', 'min:3'],
-            'sku' => ['required', 'min:8', 'max:8', 'unique:products'],
-            'description' => [''],
-            'category' => ['required', 'exists:categories,id'],
-            'price' => ['required', 'numeric'],
-            'stock' => ['required', 'numeric'],
-        ]);
+{
+    $data = request()->validate([
+        'product_name' => ['required', 'min:3'],
+        'sku' => ['required', 'min:8', 'max:8', 'unique:products'],
+        'description' => ['nullable'],
+        'category' => ['required', 'exists:categories,id'],
+        'price' => ['required', 'numeric'],
+        'stock' => ['required', 'numeric'],
+        'image_url' => ['required', 'url'], // Se valida que se envíe una URL válida
+    ]);
 
-        Product::create([
-            'name' => request('product_name'),
-            'slug' => request('product_name'),
-            'description' => request('description'),
-            'price' => request('price'),
-            'stock' => request('stock'),
-            'sku' => request('sku'),
-            'is_active' => true,
-            'category_id' => request('category'),
-        ]);
+    // Crear el producto
+    $product = Product::create([
+        'name' => $data['product_name'],
+        'slug' => $data['product_name'],
+        'description' => $data['description'],
+        'price' => $data['price'],
+        'stock' => $data['stock'],
+        'sku' => $data['sku'],
+        'is_active' => true,
+        'category_id' => $data['category'],
+    ]);
 
-        return redirect('/products');
-    }
+    $product->images()->create([
+        'url' => $data['image_url'],
+        'alt_text' => $data['product_name'], 
+        'is_primary' => true,              
+        'display_order' => 1,              
+    ]);
+
+    return redirect('/products');
+}
+
 
     public function edit(Product $product)
     {
