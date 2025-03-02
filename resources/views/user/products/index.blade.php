@@ -37,3 +37,5 @@
         {{ $products->links() }}
     </div>
 </x-layout>
+
+@include('components.footer')

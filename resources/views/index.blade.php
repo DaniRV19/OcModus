@@ -4,7 +4,7 @@
     </x-slot:heading>
 
     <!-- Sección Quiénes Somos -->
-    <section class="container mx-auto px-6 py-12 max-w-4xl">
+    <section class="container mx-auto px-6 py-12 max-w-4xl" id="qs">
         <div class="text-center mb-12">
             <h2 class="text-3xl font-bold text-green-800 mb-4">Quiénes Somos</h2>
             <div class="w-24 h-1 bg-green-600 mx-auto mb-8"></div>
@@ -285,3 +285,5 @@
     </section>
 
 </x-layout>
+
+@include('components.footer')

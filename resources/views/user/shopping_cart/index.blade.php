@@ -141,3 +141,5 @@
         </section>
     </main>
 </x-layout>
+
+@include('components.footer')
