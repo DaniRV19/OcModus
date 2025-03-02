@@ -1,12 +1,16 @@
 <x-layout>
-    <x-slot:heading>Carrito</x-slot:heading>
+    <x-slot:heading>
+        Carrito
+    </x-slot:heading>
     <main class="pt-24">
         <div class="mb-4 pb-4"></div>
         <section class="container mx-auto px-4">
             <h2 class="text-2xl font-bold mb-6">Tu Carrito</h2>
             @php
-                // Obtenemos el subtotal "limpio" (sin formato) de la instancia "cart"
-                $rawSubtotal = (float) Cart::instance('cart')->subtotal(2, '.', '');
+                // Definimos la instancia exclusiva para el usuario logueado
+                $instance = 'cart_' . auth()->id();
+                // Obtenemos el subtotal "limpio" de la instancia exclusiva
+                $rawSubtotal = (float) Cart::instance($instance)->subtotal(2, '.', '');
                 // Costo de envío calculado como 7.5% del subtotal
                 $shipping = $rawSubtotal * 0.075;
                 // Tasa de IVA (por ejemplo, 21%)
@@ -42,8 +46,7 @@
                                         @foreach($items as $item)
                                             <tr class="border-b">
                                                 <td class="p-3">
-                                                    <img src="{{ asset('assets/images/cart-item-1.jpg') }}"
-                                                        class="w-20 h-20 object-cover" alt="Product Image" />
+                                                    <img src="{{ asset('assets/images/cart-item-1.jpg') }}" class="w-20 h-20 object-cover" alt="Product Image" />
                                                 </td>
                                                 <td class="p-3">
                                                     <h4 class="font-bold">{{ $item->name }}</h4>
@@ -51,24 +54,19 @@
                                                 <td class="p-3 text-gray-700">${{ $item->price }}</td>
                                                 <td class="p-3">
                                                     <!-- Formulario para actualizar la cantidad -->
-                                                    <form action="{{ route('shopping_cart.update', $item->rowId) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('shopping_cart.update', $item->rowId) }}" method="POST">
                                                         @csrf
                                                         @method('PUT')
-                                                        <input type="number" name="quantity" value="{{ $item->qty }}" min="1"
-                                                            class="w-16 text-center border rounded-lg p-2"
-                                                            onchange="this.form.submit()" />
+                                                        <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="w-16 text-center border rounded-lg p-2" onchange="this.form.submit()" />
                                                     </form>
                                                 </td>
                                                 <td class="p-3 text-gray-700">${{ $item->subtotal }}</td>
                                                 <td class="p-3">
                                                     <!-- Formulario para eliminar el ítem del carrito -->
-                                                    <form action="{{ route('shopping_cart.remove', $item->rowId) }}"
-                                                        method="POST">
+                                                    <form action="{{ route('shopping_cart.remove', $item->rowId) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit"
-                                                            class="text-red-500 hover:text-red-700 hover:cursor-pointer">✖</button>
+                                                        <button type="submit" class="text-red-500 hover:text-red-700 hover:cursor-pointer">✖</button>
                                                     </form>
                                                 </td>
                                             </tr>
@@ -79,10 +77,8 @@
                             <div class="flex justify-between items-center mt-4">
                                 <form action="{{ route('shopping_cart.applyCoupon') }}" method="POST" class="flex gap-2">
                                     @csrf
-                                    <input type="text" name="coupon_code" placeholder="Coupon Code"
-                                        class="border rounded-lg p-2" />
-                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Aplicar
-                                        Cupón</button>
+                                    <input type="text" name="coupon_code" placeholder="Coupon Code" class="border rounded-lg p-2" />
+                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Aplicar Cupón</button>
                                 </form>
                                 @if(session('error'))
                                     <p class="text-red-500 text-sm">{{ session('error') }}</p>
@@ -90,12 +86,10 @@
                                     <p class="text-green-500 text-sm">{{ session('success') }}</p>
                                 @endif
                             </div>
-
                         @else
                             <div class="text-center py-10">
                                 <p class="text-gray-500">No hay artículos en el carrito</p>
-                                <a href="/products"
-                                    class="bg-blue-500 text-white px-6 py-2 rounded-lg mt-4 inline-block">Ver Artículos</a>
+                                <a href="/products" class="bg-blue-500 text-white px-6 py-2 rounded-lg mt-4 inline-block">Ver Artículos</a>
                             </div>
                         @endif
                     </div>
@@ -124,14 +118,12 @@
                     </table>
                     @if($items->count() > 0)
                         <!-- Enlace al checkout -->
-                        <a href="{{ route('checkout.index') }}"
-                            class="block bg-green-500 text-white text-center mt-4 py-2 rounded-lg">
+                        <a href="{{ route('checkout.index') }}" class="block bg-green-500 text-white text-center mt-4 py-2 rounded-lg">
                             Proceder al Checkout
                         </a>
                     @else
                         <!-- Botón deshabilitado o mensaje -->
-                        <button disabled
-                            class="block bg-gray-500 text-white text-center mt-4 py-2 rounded-lg cursor-not-allowed px-4">
+                        <button disabled class="block bg-gray-500 text-white text-center mt-4 py-2 rounded-lg cursor-not-allowed px-4">
                             Proceder al Checkout
                         </button>
                         <p class="text-center text-sm text-gray-600 mt-2">Agrega productos para continuar</p>
@@ -141,5 +133,4 @@
         </section>
     </main>
 </x-layout>
-
-@include('components.footer')
+<x-footer></x-footer>

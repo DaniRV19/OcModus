@@ -38,4 +38,4 @@
     </div>
 </x-layout>
 
-@include('components.footer')
+<x-footer></x-footer>
