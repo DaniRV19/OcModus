@@ -16,23 +16,24 @@ class AddressController extends Controller
 
     // Almacena la nueva dirección asociada al usuario autenticado
     public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'street'      => ['required', 'string', 'max:255'],
-            'city'        => ['required', 'string', 'max:255'],
-            'state'       => ['required', 'string', 'max:255'],
-            'country'     => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:20'],
-            'type'        => ['required', 'in:home,work,vacation'], // Ajusta según las opciones que quieras
-        ]);
+{
+    $validated = $request->validate([
+        'street'      => ['required', 'string', 'max:255'],
+        'city'        => ['required', 'string', 'max:255'],
+        'state'       => ['required', 'string', 'max:255'],
+        'country'     => ['required', 'string', 'max:255'],
+        'postal_code' => ['required', 'string', 'max:20'],
+        'type'        => ['required', 'in:home,work,vacation'],
+    ]);
 
-        // Si el usuario no tiene dirección predeterminada, marcamos ésta como default
-        $validated['is_default'] = !Auth::user()->addresses()->where('is_default', true)->exists();
+    // Si el usuario no tiene dirección predeterminada, marcamos ésta como default
+    $validated['is_default'] = !auth()->user()->addresses()->where('is_default', true)->exists();
 
-        Auth::user()->addresses()->create($validated);
+    auth()->user()->addresses()->create($validated);
 
-        return redirect()->back()->with('success', 'Dirección agregada correctamente.');
-    }
+    return redirect('/user')->with('success', 'Dirección agregada correctamente.');
+}
+
 
     // Muestra el formulario para editar una dirección existente
     public function edit(Address $address)

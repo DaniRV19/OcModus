@@ -19,11 +19,17 @@ class ShoppingCartController extends Controller
         // Obtener el producto mediante el ID recibido
         $product = Product::findOrFail($request->input('product_id'));
 
-        // Agregar el producto al carrito utilizando la clave 'qty'
+        // Calcular el precio final aplicando descuento de la categoría (si está activo)
+        $finalPrice = $product->price;
+        if ($product->category && $product->category->discount_active) {
+            $finalPrice = $product->price - ($product->price * ($product->category->discount / 100));
+        }
+
+        // Agregar el producto al carrito utilizando la clave 'qty' y la instancia exclusiva para el usuario
         Cart::instance('cart_' . auth()->id())->add([
             'id'         => $product->id,
             'name'       => $product->name,
-            'price'      => $product->price,
+            'price'      => $finalPrice,
             'qty'        => 1, // Usamos 'qty' y no 'quantity'
             'attributes' => [
                 'image' => $product->images()->first()->url ?? 'default-image.jpg'

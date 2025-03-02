@@ -147,3 +147,6 @@ Route::post('/shopping_cart/apply-coupon', [\App\Http\Controllers\ShoppingCartCo
 
 Route::post('/language', [LanguageController::class, 'change'])->name('language.change');
 
+// Descuentos
+
+Route::put('/admin/categories/{category}/discount', [\App\Http\Controllers\CategoryController::class, 'updateDiscount'])->name('admin.categories.discount.update');
