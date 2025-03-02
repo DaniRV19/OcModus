@@ -19,14 +19,22 @@
                 <div class="bg-green-50 p-5 lg:p-11 lg:rounded-r-2xl rounded-2xl">
                     <h2 class="text-green-600 font-manrope text-4xl font-semibold leading-10 mb-11">Contáctanos</h2>
                     <form id="contactForm">
-                        <input type="text" placeholder="Nombre"
+                        <input type="text" id="name" placeholder="Nombre" required
                             class="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-4">
-                        <input type="email" placeholder="Email"
+                        <span id="nameError" class="text-red-500 text-sm hidden">Este campo es obligatorio.</span>
+
+                        <input type="email" id="email" placeholder="Email" required
                             class="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-4">
-                        <input type="text" placeholder="Teléfono"
+                        <span id="emailError" class="text-red-500 text-sm hidden">Ingresa un email válido.</span>
+
+                        <input type="text" id="phone" placeholder="Teléfono" required
                             class="w-full h-12 text-gray-600 placeholder-gray-400 shadow-sm bg-transparent text-lg font-normal leading-7 rounded-full border border-gray-200 focus:outline-none pl-4 mb-4">
-                        <textarea placeholder="Mensaje"
+                        <span id="phoneError" class="text-red-500 text-sm hidden">Este campo es obligatorio.</span>
+
+                        <textarea id="message" placeholder="Mensaje" required
                             class="w-full h-24 text-gray-600 placeholder-gray-400 bg-transparent text-lg shadow-sm font-normal leading-7 rounded-lg border border-gray-200 focus:outline-none pl-4 pt-2 mb-4"></textarea>
+                        <span id="messageError" class="text-red-500 text-sm hidden">Este campo es obligatorio.</span>
+
                         <button type="submit"
                             class="w-full h-12 text-white text-base font-semibold leading-6 rounded-full transition-all duration-700 hover:bg-green-800 bg-green-600 shadow-sm">Enviar</button>
                     </form>
@@ -48,8 +56,48 @@
     <script>
         document.getElementById('contactForm').addEventListener('submit', function (event) {
             event.preventDefault();
-            document.getElementById('successModal').classList.remove('hidden');
+            let isValid = true;
+
+            let name = document.getElementById('name').value.trim();
+            let email = document.getElementById('email').value.trim();
+            let phone = document.getElementById('phone').value.trim();
+            let message = document.getElementById('message').value.trim();
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (name === '') {
+                document.getElementById('nameError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('nameError').classList.add('hidden');
+            }
+
+            if (email === '' || !emailPattern.test(email)) {
+                document.getElementById('emailError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('emailError').classList.add('hidden');
+            }
+
+            if (phone === '') {
+                document.getElementById('phoneError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('phoneError').classList.add('hidden');
+            }
+
+            if (message === '') {
+                document.getElementById('messageError').classList.remove('hidden');
+                isValid = false;
+            } else {
+                document.getElementById('messageError').classList.add('hidden');
+            }
+
+            if (isValid) {
+                document.getElementById('successModal').classList.remove('hidden');
+                this.reset();
+            }
         });
+
         document.getElementById('closeModal').addEventListener('click', function () {
             document.getElementById('successModal').classList.add('hidden');
         });
