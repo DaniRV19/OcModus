@@ -10,14 +10,8 @@
             <!-- Logo -->
             <div class="flex-shrink-0">
 
-                <a href="#" class="flex items-center">
-                    <svg id="toggle-categories" class="h-10 w-10 text-primary-green" viewBox="0 0 100 100"
-                        fill="currentColor">
-                        <path
-                            d="M50 15c-19.33 0-35 15.67-35 35s15.67 35 35 35 35-15.67 35-35-15.67-35-35-35zm0 60c-13.81 0-25-11.19-25-25s11.19-25 25-25 25 11.19 25 25-11.19 25-25 25z" />
-                        <path
-                            d="M50 35c-8.28 0-15 6.72-15 15 0 8.28 6.72 15 15 15 8.28 0 15-6.72 15-15 0-8.28-6.72-15-15-15zm0 20c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-                    </svg>
+                <a href="/" class="flex items-center">
+                    <img class="w-40" src="{{ asset('img/logo-primary-nobg.png') }}" alt="">
                 </a>
             </div>
 
